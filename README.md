@@ -1,4 +1,4 @@
-# HW1-1 Client Side IoT — AIoT System
+# HW1 Client Side IoT — AIoT System
 
 ## Live Demo
 
@@ -25,7 +25,7 @@
 | 檔案 | 說明 |
 |------|------|
 | `WIFI_DHT11/WIFI_DHT11.ino` | ESP32 韌體（POST JSON 版） |
-| `server.py` | 原始 Flask server（HW1-1 初版，GET） |
+| `server.py` | 原始 Flask server（HW1 初版，GET） |
 | `app.py` | 升級版 Flask server + 自動模擬背景執行緒 |
 | `esp32_sim.py` | 獨立 Python 模擬器（可單獨執行） |
 | `dashboard.py` | Streamlit Dashboard（本地 + 雲端 demo 模式） |

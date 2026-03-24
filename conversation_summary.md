@@ -1,7 +1,7 @@
-# AI 協作對話摘要 — HW1-1 Client Side IoT
+# AI 協作對話摘要 — HW1 Client Side IoT
 
 本文件摘要兩段 AI 輔助開發對話：
-1. **ChatGPT**（初版作業引導，逐步完成 HW1-1）
+1. **ChatGPT**（初版作業引導，逐步完成 HW1）
 2. **Claude**（系統升級、雙管道架構、Dashboard、部署）
 
 ---
@@ -12,11 +12,11 @@
 
 ### 對話目標
 
-逐步完成 HW1-1 四個章節，每章確認完成再進入下一章。
+逐步完成 HW1 四個子項目，每項確認完成再進入下一項。
 
 ---
 
-### CH1｜LED Flash
+### HW1-1｜LED Flash
 
 **使用者：** 要協助我完成物聯網作業，作業內容包含 LED Flash / DHT11 / SQLite / WiFi。
 
@@ -36,11 +36,11 @@ void loop() {
 [ESP32 GPIO2] → [LED] → GND
 ```
 
-**結果：** 第1章完成。
+**結果：** HW1-1 完成。
 
 ---
 
-### CH2｜DHT11 Serial Monitor
+### HW1-2｜DHT11 Serial Monitor
 
 **ChatGPT：** 提供 DHT11 接線與程式碼，說明需安裝 `Adafruit DHT` 函式庫。
 
@@ -73,11 +73,11 @@ void loop() {
 濕度: 61.00 %   溫度: 33.60 °C
 ```
 
-**結果：** 第2章完成。
+**結果：** HW1-2 完成。
 
 ---
 
-### CH3｜SQLite 隨機資料模擬
+### HW1-3｜SQLite 隨機資料模擬
 
 **使用者：** 3、4 階段是有連貫的，3 是用 random data 模擬 DHT11，4 是用 WiFi 傳實際值。
 
@@ -98,17 +98,17 @@ conn.commit()
 ```
 
 **關鍵說明：**
-- 第3章 = 假資料 pipeline（驗證 DB 流程）
-- 第4章 = 真資料 pipeline（真正 IoT）
-- 若第3章用 WiFi 資料 → 被扣分
+- HW1-3 = 假資料 pipeline（驗證 DB 流程）
+- HW1-4 = 真資料 pipeline（真正 IoT）
+- 若 HW1-3 用 WiFi 資料 → 被扣分
 
-**結果：** 第3章完成（DHT11版）。
+**結果：** HW1-3 完成（DHT11版）。
 
 ---
 
-### CH4｜WiFi 傳輸 + Flask + SQLite 串接
+### HW1-4｜WiFi 傳輸 + Flask + SQLite 串接
 
-**使用者：** 可以延續第3章存成 SQLite 嗎？
+**使用者：** 可以延續 HW1-3 存成 SQLite 嗎？
 
 **ChatGPT：** ESP32 無法直接寫 SQLite（記憶體不足），正確架構為：
 
@@ -174,7 +174,7 @@ http.GET();
 
 ### 目標
 
-在 HW1-1 基礎上升級為完整雙管道 AIoT 系統，加入 Dashboard 與部署。
+在 HW1 基礎上升級為完整雙管道 AIoT 系統，加入 Dashboard 與部署。
 
 ---
 
@@ -278,10 +278,10 @@ http.GET();
 ```
 ChatGPT 引導                        Claude 升級
 ────────────────────                ─────────────────────────────
-CH1 LED Flash                       ESP32 GET → POST JSON
-CH2 DHT11 Serial Monitor       →    Flask 多端點 + 錯誤處理
-CH3 SQLite random data              自動模擬背景執行緒 sim_loop
-CH4 WiFi + Flask + SQLite           Streamlit Dashboard
+HW1-1 LED Flash                     ESP32 GET → POST JSON
+HW1-2 DHT11 Serial Monitor     →    Flask 多端點 + 錯誤處理
+HW1-3 SQLite random data            自動模擬背景執行緒 sim_loop
+HW1-4 WiFi + Flask + SQLite         Streamlit Dashboard
       ↓                             雲端 demo random walk 平滑化
   server.py (初版)                  GitHub + Streamlit Cloud 部署
   WIFI_DHT11.ino (初版)                  ↓

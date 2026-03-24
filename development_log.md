@@ -1,4 +1,4 @@
-# Development Log — HW1-1 Client Side IoT
+# Development Log — HW1 Client Side IoT
 
 ---
 
@@ -41,7 +41,7 @@
 
 ## 三、開發歷程
 
-### Step 1 — LED Flash（GPIO 基礎驗證）
+### HW1-1 — LED Flash（GPIO 基礎驗證）
 
 透過控制 ESP32 GPIO 腳位，實現 LED 週期性閃爍，驗證開發板與開發環境正常運作。
 
@@ -61,7 +61,7 @@ void loop() {
 
 ---
 
-### Step 2 — DHT11 感測資料讀取
+### HW1-2 — DHT11 感測資料讀取
 
 接上 DHT11 感測器（GPIO Pin 4），透過 Serial Monitor 即時顯示溫濕度。
 
@@ -102,7 +102,7 @@ void loop() {
 
 ---
 
-### Step 3 — SQLite 隨機資料模擬
+### HW1-3 — SQLite 隨機資料模擬
 
 使用 Python 建立 SQLite 資料庫 `aiotdb.db`，以亂數產生溫濕度模擬資料，驗證資料庫寫入流程。
 
@@ -138,7 +138,7 @@ id | temperature | humidity  | timestamp
 
 ---
 
-### Step 4 — WiFi 傳輸與 Flask Server 串接（原始版 server.py）
+### HW1-4 — WiFi 傳輸與 Flask Server 串接（原始版 server.py）
 
 將 ESP32 DHT11 讀值透過 WiFi 以 HTTP GET 傳送至電腦端 Flask Server，寫入 SQLite。
 
