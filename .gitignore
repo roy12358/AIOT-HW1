@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+*.pyc
+aiotdb.db
+*.db
+.env
+AIOT-HW1.pdf
