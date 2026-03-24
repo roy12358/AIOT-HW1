@@ -127,7 +127,7 @@ with st.sidebar:
             active_source = None  # 決定在下方
 
     st.divider()
-    auto_refresh = st.checkbox("Auto-refresh (10 s)", value=True)
+    auto_refresh = st.checkbox("Auto-refresh (5 s)", value=True)
     if st.button("Refresh now"):
         st.rerun()
 
@@ -193,5 +193,5 @@ if not df.empty:
 
 # ── Auto-refresh ─────────────────────────────────────────────────────────────────
 if auto_refresh:
-    time.sleep(10)
+    time.sleep(5)
     st.rerun()
