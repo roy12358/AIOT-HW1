@@ -31,6 +31,7 @@
 | `dashboard.py` | Streamlit Dashboard（本地 + 雲端 demo 模式） |
 | `requirements.txt` | Python 套件需求 |
 | [development_log.md](development_log.md) | 完整開發記錄 + 實測截圖 |
+| [conversation_summary.md](conversation_summary.md) | ChatGPT & Claude 對話摘要 |
 
 ## 截圖
 
