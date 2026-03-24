@@ -50,20 +50,52 @@ def load_local(source: str) -> pd.DataFrame:
 
 
 def make_demo_data() -> pd.DataFrame:
-    """Generate 40 rows of in-memory simulated data for cloud demo."""
-    now  = int(time.time())
-    rows = [
-        {
-            "id":          i + 1,
-            "temperature": round(random.uniform(20.0, 35.0), 2),
-            "humidity":    round(random.uniform(40.0, 80.0), 2),
+    """
+    Cloud demo: maintain a rolling 40-row buffer in session_state.
+    Each rerun appends one new point via random walk → smooth curves.
+    """
+    now = int(time.time())
+
+    # ── First run: seed the buffer ─────────────────────────────────
+    if "demo_rows" not in st.session_state:
+        t, h = 28.0, 55.0
+        rows = []
+        for i in range(40):
+            t = round(max(20.0, min(35.0, t + random.uniform(-0.3, 0.3))), 2)
+            h = round(max(40.0, min(80.0, h + random.uniform(-0.8, 0.8))), 2)
+            rows.append({
+                "id":          i + 1,
+                "temperature": t,
+                "humidity":    h,
+                "device_id":   "sim_esp32",
+                "source":      "simulated",
+                "timestamp":   now - (40 - i) * 10,
+            })
+        st.session_state.demo_rows  = rows
+        st.session_state.demo_id    = 41
+        st.session_state.demo_temp  = t
+        st.session_state.demo_humi  = h
+
+    # ── Each rerun: append one new point, drop oldest ──────────────
+    else:
+        prev_t = st.session_state.demo_temp
+        prev_h = st.session_state.demo_humi
+        new_t  = round(max(20.0, min(35.0, prev_t + random.uniform(-0.4, 0.4))), 2)
+        new_h  = round(max(40.0, min(80.0, prev_h + random.uniform(-1.0, 1.0))), 2)
+        st.session_state.demo_rows.append({
+            "id":          st.session_state.demo_id,
+            "temperature": new_t,
+            "humidity":    new_h,
             "device_id":   "sim_esp32",
             "source":      "simulated",
-            "timestamp":   now - (40 - i) * 5,
-        }
-        for i in range(40)
-    ]
-    df = pd.DataFrame(rows)
+            "timestamp":   now,
+        })
+        st.session_state.demo_rows  = st.session_state.demo_rows[-40:]
+        st.session_state.demo_id   += 1
+        st.session_state.demo_temp  = new_t
+        st.session_state.demo_humi  = new_h
+
+    df = pd.DataFrame(st.session_state.demo_rows)
     df["datetime"] = pd.to_datetime(df["timestamp"], unit="s")
     return df
 
@@ -95,7 +127,7 @@ with st.sidebar:
             active_source = None  # 決定在下方
 
     st.divider()
-    auto_refresh = st.checkbox("Auto-refresh (5 s)", value=True)
+    auto_refresh = st.checkbox("Auto-refresh (10 s)", value=True)
     if st.button("Refresh now"):
         st.rerun()
 
@@ -161,5 +193,5 @@ if not df.empty:
 
 # ── Auto-refresh ─────────────────────────────────────────────────────────────────
 if auto_refresh:
-    time.sleep(5)
+    time.sleep(10)
     st.rerun()

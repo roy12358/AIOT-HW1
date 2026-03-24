@@ -7,6 +7,7 @@ import threading
 app = Flask(__name__)
 DB_PATH      = "aiotdb.db"
 REAL_TIMEOUT = 30   # 超過幾秒沒有 real 資料 → ESP32 視為離線
+SIM_INTERVAL = 15   # 本地模擬資料產生間隔（秒）
 
 
 def init_db():
@@ -60,7 +61,7 @@ def sim_loop():
             print(f"[SIM]  Temp={temp}  Humi={humi}")
         else:
             print("[SIM]  ESP32 online — 模擬暫停")
-        time.sleep(5)
+        time.sleep(SIM_INTERVAL)
 
 
 # ── POST /sensor ───────────────────────────────────────────────────────────────
